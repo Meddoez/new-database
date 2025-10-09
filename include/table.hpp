@@ -35,6 +35,7 @@
 /// We want to create a table for users that are able to loan books, the parent table is then the user, the child tables are loan, what book, authors etc.
 /// They can then have multiple child tables, ie giving the name one-to-many-relationship. 
 /// the child table should always have a reference to one index in the parent table, ie they should be named the same for relevance.
+/// the primary key should be the id of the row and auto-increment, 
 
 template <typename T>
 class Table 
