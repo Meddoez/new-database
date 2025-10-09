@@ -1,5 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "table.hpp"
+#include "user.hpp"
+#include "database.hpp"
 #include <iostream>
 #include "catch.hpp"
 using namespace std;
@@ -13,9 +15,13 @@ TEST_CASE("Table basic operations", "[table]") {
 
     // TableData data{columns, {}};
     // Table table(data);
-    // 
-    Table<User> users;
-    users.insert({0, "Johan", 26});
-    users.insert({0, "Mohammed", 25});
+    //
+    Database database;
+    database.add_user(User{0, "Johan", 26});
+    
+
+    REQUIRE(database.get() == 1);
+    REQUIRE(!(database.get() == 0));
+
 
 }

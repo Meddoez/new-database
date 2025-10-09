@@ -1,7 +1,10 @@
 #pragma once
 #include <vector>
 #include <string>
-#include <unoredered_map>
+#include <unordered_map>
+#include <algorithm>
+#include <stdexcept>
+
 
 // the idea is to create a relational database, 
 // + good for finding specific data fast, 
@@ -38,15 +41,28 @@ class Table
 {
 public:
 
-    Table();
+    Table() : m_rows{}, m_next_id{0}
+    {}
 
-    void insert(T const &row);
-    void remove(int const &id);
+    void insert(T const &row)
+    {
+        m_rows.push_back(row); 
+    }
+    void remove(int const &id)
+    {
+        if (id >= m_rows.size()) throw std::out_of_range("Index out of range");
+        m_rows.erase(m_rows.begin() + id);
+    }
+
+    size_t get_all_rows() const
+    {
+        return m_rows.size();
+    }
 
 
     
 
 private:
     std::vector<T> m_rows;
-
+    int m_next_id;
 };

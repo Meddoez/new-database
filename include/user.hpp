@@ -1,14 +1,11 @@
 #pragma once
+#include <string>
 
-
-class User
+struct User
 {
-public:
 
-
-
-private:
-    int m_user_id;
-    int m_age;
+    int id = 0;
+    std::string name;
+    int age;
 
 };
