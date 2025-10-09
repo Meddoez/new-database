@@ -4,6 +4,8 @@
 #include "catch.hpp"
 using namespace std;
 
+// n1 rule, make the tests first!
+
 TEST_CASE("Table basic operations", "[table]") {
     // Column col1{"Name", DataType::STRING};
     // Column col2{"Age", DataType::INT};
@@ -11,4 +13,9 @@ TEST_CASE("Table basic operations", "[table]") {
 
     // TableData data{columns, {}};
     // Table table(data);
+    // 
+    Table<User> users;
+    users.insert({0, "Johan", 26});
+    users.insert({0, "Mohammed", 25});
+
 }

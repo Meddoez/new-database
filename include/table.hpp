@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+#include <string>
+#include <unoredered_map>
 
 // the idea is to create a relational database, 
 // + good for finding specific data fast, 
@@ -25,18 +28,25 @@
 
 // https://vertabelo.com/blog/one-to-many-relationship/
 
+////////////////// THE IDEA /////////////////////
+/// We want to create a table for users that are able to loan books, the parent table is then the user, the child tables are loan, what book, authors etc.
+/// They can then have multiple child tables, ie giving the name one-to-many-relationship. 
+/// the child table should always have a reference to one index in the parent table, ie they should be named the same for relevance.
 
-
+template <typename T>
 class Table 
 {
 public:
 
     Table();
-  
+
+    void insert(T const &row);
+    void remove(int const &id);
+
 
     
 
 private:
-    
+    std::vector<T> m_rows;
 
 };
