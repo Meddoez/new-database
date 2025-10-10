@@ -45,8 +45,9 @@ public:
     Table() : m_rows{}, m_next_id{0}
     {}
 
-    void insert(T const &row)
+    void insert(T &row)
     {
+        row.id = m_next_id++;
         m_rows.push_back(row); 
     }
     void remove(int const &id)
@@ -60,10 +61,10 @@ public:
         return m_rows.size();
     }
 
-
-    
-
 private:
     std::vector<T> m_rows;
     int m_next_id;
 };
+
+
+

@@ -4,7 +4,7 @@
 struct User
 {
 
-    int id = 0;
+    int id;
     std::string name;
     int age;
 

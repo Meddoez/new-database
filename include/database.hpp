@@ -10,12 +10,11 @@ public:
 
     Database();
 
-    void add_user(User const &user);
-    
+    void add_user(User user);
+    void remove_user(User user);  
     size_t get() const;
 
 private:
     Table<User> m_users;
-
 
 };
