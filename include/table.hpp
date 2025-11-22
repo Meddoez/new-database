@@ -52,13 +52,38 @@ public:
     }
     void remove(int const &id)
     {
-        if (id >= m_rows.size()) throw std::out_of_range("Index out of range");
-        m_rows.erase(m_rows.begin() + id);
+        auto it {std::find_if(m_rows.begin(), m_rows.end(), [id](T const &row)
+        {
+            return row.id == id;
+        })};
+
+        if (it == m_rows.end())
+        {
+            throw std::out_of_range("No row with matching id");
+        }
+        m_rows.erase(it)
     }
 
     size_t get_all_rows() const
     {
         return m_rows.size();
+    }
+
+    // T* get_row(int id)
+    // {
+    //     for (auto const &row : m_rows)
+    //     {
+    //         if (row.id == id)
+    //         {
+    //             return &row;
+    //         }
+    //     }
+    //     return nullptr;
+    // }
+
+    std::vector<T> get_rows() const
+    {
+        return m_rows;
     }
 
 private:

@@ -2,6 +2,7 @@
 #include "table.hpp"
 #include "user.hpp"
 #include "database.hpp"
+#include "loans.hpp"
 #include <iostream>
 #include "catch.hpp"
 using namespace std;
@@ -13,8 +14,8 @@ TEST_CASE("Create database")
     Database database;
     database.add_user(User{0, "Johan", 26});
     
-    REQUIRE(database.get() == 1);
-    REQUIRE(!(database.get() == 0));
+    REQUIRE(database.get_users() == 1);
+    REQUIRE(!(database.get_users() == 0));
 }
 
 TEST_CASE("Remove operations")
@@ -23,16 +24,53 @@ TEST_CASE("Remove operations")
     User user{0, "Johan", 26};
 
     database.add_user(user);
-    REQUIRE(database.get() == 1);
+    REQUIRE(database.get_users() == 1);
     
     database.remove_user(user);
-    REQUIRE(database.get() == 0);
+    REQUIRE(database.get_users() == 0);
 }
 
-TEST_CASE("Invalid remove due to primary key")
+TEST_CASE("Create relationship")
 {
+    Database database;
+    User user{0, "Johan", 26};
+    Loan loan{0, 1, "2025-01-01"};
 
+    database.add_user(user);
+    database.add_loan(user, loan);
+    
+    REQUIRE(database.get_users() == 1);
+    REQUIRE(database.get_loans() == 1);
+}
 
+// So im thinking that we have a user which owns the primary key, this we can not remove the user when it has a loan.
+TEST_CASE("Invalid user remove due to primary key")
+{
+    Database database;
+    User user{0, "Johan", 26};
+    Loan loan{0, 1, "2025-01-01"};
+
+    database.add_user(user);
+    database.add_loan(user, loan);
+
+    REQUIRE(database.get_users() == 1);
+    REQUIRE(database.get_loans() == 1);
+
+    REQUIRE_THROWS(database.remove_user(user)); 
+
+}
+
+TEST_CASE("Valid remove of user")
+{
+    Database database;
+    User user{0, "Johan", 26};
+
+    database.add_user(user);
+
+    REQUIRE(database.get_users() == 1);
+
+    database.remove_user(user);
+    REQUIRE(database.get_users() == 0);
 
 }
 

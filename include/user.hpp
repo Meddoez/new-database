@@ -4,8 +4,12 @@
 struct User
 {
 
-    int id;
+    int id{0};
     std::string name;
     int age;
 
+    int get_user_id() const
+    {
+        return id;
+    }
 };
