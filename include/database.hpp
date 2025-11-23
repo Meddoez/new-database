@@ -12,8 +12,8 @@ public:
 
     Database();
 
-    void add_user(User user);
-    void remove_user(User user);  
+    void add_user(User &user);
+    void remove_user(User &user);  
     size_t get_users() const;
 
     void add_loan(User &user, Loan &loan);

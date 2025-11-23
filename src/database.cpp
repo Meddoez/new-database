@@ -3,12 +3,12 @@
 Database::Database()
 {}
 
-void Database::add_user(User user)
+void Database::add_user(User &user)
 {
     m_users.insert(user);
 }
 
-void Database::remove_user(User user)
+void Database::remove_user(User &user)
 {
     if (user_has_loans(user.id))
     {
