@@ -71,13 +71,26 @@ TEST_CASE("Valid remove of user")
 
     database.remove_user(user);
     REQUIRE(database.get_users() == 0);
-
 }
 
 
-TEST_CASE("Multiple tables tests")
+TEST_CASE("Hashmap lookup tests")
 {
+    Database db;
+    User user{0, "Johan", 26};
 
+    db.add_user(user);
+
+    REQUIRE(db.get_specific_user(0).id == 0);
+    REQUIRE(db.get_specific_user(0).name == "Johan");
+    REQUIRE(db.get_specific_user(0).age == 26);
+
+    User user2{0, "Mohammed", 23};
+    db.add_user(user2); 
+    
+    REQUIRE(db.get_specific_user(1).id == 1);
+    REQUIRE(db.get_specific_user(1).name == "Mohammed");
+    REQUIRE(db.get_specific_user(1).age == 23);
 }
 
 

@@ -48,8 +48,10 @@ public:
     void insert(T &row)
     {
         row.id = m_next_id++;
-        m_rows.push_back(row); 
+        m_rows.push_back(row);
+        m_row_map[row.id] = row;
     }
+
     void remove(int const &id)
     {
         auto it {std::find_if(m_rows.begin(), m_rows.end(), [id](T const &row)
@@ -61,7 +63,7 @@ public:
         {
             throw std::out_of_range("No row with matching id");
         }
-        m_rows.erase(it)
+        m_rows.erase(it);
     }
 
     size_t get_all_rows() const
@@ -69,26 +71,20 @@ public:
         return m_rows.size();
     }
 
-    // T* get_row(int id)
-    // {
-    //     for (auto const &row : m_rows)
-    //     {
-    //         if (row.id == id)
-    //         {
-    //             return &row;
-    //         }
-    //     }
-    //     return nullptr;
-    // }
-
     std::vector<T> get_rows() const
     {
         return m_rows;
     }
 
+    T& get_specific_row(int const &id)
+    {
+        return m_row_map[id];
+    }
+
 private:
     std::vector<T> m_rows;
     int m_next_id;
+    std::unordered_map<int, T> m_row_map;
 };
 
 

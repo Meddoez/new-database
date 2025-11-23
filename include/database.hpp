@@ -20,8 +20,11 @@ public:
     void remove_loan(Loan loan);
     size_t get_loans() const;
     bool user_has_loans(int const &user_id) const;
+    
+    User get_specific_user(int const &user_id);
 
 private:
     Table<User> m_users;
     Table<Loan> m_loans;
+
 };

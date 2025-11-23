@@ -22,7 +22,7 @@ size_t Database::get_users() const
    return m_users.get_all_rows(); 
 }
 
-// how do we link the loan to the user? we need to add a foreign key to the loan 
+// add exists checks for specific user;
 void Database::add_loan(User &user, Loan &loan)
 {
     loan.user_id = user.id;
@@ -49,5 +49,10 @@ bool Database::user_has_loans(int const &user_id) const
         }
     }
     return false;
+}
+
+User Database::get_specific_user(int const &user_id)
+{
+    return m_users.get_specific_row(user_id);
 }
 
