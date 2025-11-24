@@ -8,18 +8,18 @@ void Database::add_user(User &user)
     m_users.insert(user);
 }
 
-void Database::remove_user(User &user)
+void Database::remove_user(int const &id)
 {
-    if (user_has_loans(user.id))
+    if (user_has_loans(id))
     {
         throw std::runtime_error("Cannot remove user with active loan");    
     }
-    m_users.remove(user.id);
+    m_users.remove(id);
 }
 
-size_t Database::get_users() const
+std::vector<User> Database::get_all_users() const
 {
-   return m_users.get_all_rows(); 
+   return m_users.get_rows(); 
 }
 
 // add exists checks for specific user;

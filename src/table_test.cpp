@@ -12,10 +12,11 @@ using namespace std;
 TEST_CASE("Create database") 
 {
     Database database;
-    database.add_user(User{0, "Johan", 26});
+    User user{0, "Johan", 26};
+    database.add_user(user);
     
-    REQUIRE(database.get_users() == 1);
-    REQUIRE(!(database.get_users() == 0));
+    REQUIRE(database.get_all_users().size() == 1);
+    REQUIRE(!(database.get_all_users().size() == 0));
 }
 
 TEST_CASE("Remove operations")
@@ -24,10 +25,10 @@ TEST_CASE("Remove operations")
     User user{0, "Johan", 26};
 
     database.add_user(user);
-    REQUIRE(database.get_users() == 1);
+    REQUIRE(database.get_all_users().size() == 1);
     
-    database.remove_user(user);
-    REQUIRE(database.get_users() == 0);
+    database.remove_user(user.id);
+    REQUIRE(database.get_all_users().size() == 0);
 }
 
 TEST_CASE("Create relationship")
@@ -39,7 +40,7 @@ TEST_CASE("Create relationship")
     database.add_user(user);
     database.add_loan(user, loan);
     
-    REQUIRE(database.get_users() == 1);
+    REQUIRE(database.get_all_users().size() == 1);
     REQUIRE(database.get_loans() == 1);
 }
 
@@ -53,10 +54,10 @@ TEST_CASE("Invalid user remove due to primary key")
     database.add_user(user);
     database.add_loan(user, loan);
 
-    REQUIRE(database.get_users() == 1);
+    REQUIRE(database.get_all_users().size() == 1);
     REQUIRE(database.get_loans() == 1);
 
-    REQUIRE_THROWS(database.remove_user(user)); 
+    REQUIRE_THROWS(database.remove_user(user.id)); 
 
 }
 
@@ -67,10 +68,10 @@ TEST_CASE("Valid remove of user")
 
     database.add_user(user);
 
-    REQUIRE(database.get_users() == 1);
+    REQUIRE(database.get_all_users().size() == 1);
 
-    database.remove_user(user);
-    REQUIRE(database.get_users() == 0);
+    database.remove_user(user.id);
+    REQUIRE(database.get_all_users().size() == 0);
 }
 
 

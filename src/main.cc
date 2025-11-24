@@ -16,6 +16,14 @@ Choice command_parser(std::string const &first_word, std::string const &second_w
         {
             return Choice::CREATE_USER;
         }
+    else if (first_word == "SELECT" && second_word == "ALL")
+        {
+            return Choice::SELECT_ALL;
+        }
+    else if (first_word == "DELETE" && second_word == "USER")
+        {
+            return Choice::DELETE_USER;
+        }
     else
     {
         throw std::runtime_error("Invalid command, please try again");
@@ -25,7 +33,7 @@ Choice command_parser(std::string const &first_word, std::string const &second_w
 int main()
 {
     std::cout << "Welcome to my custom database" << std::endl;
-    std::cout << "Commands: 1. CREATE USER, 2. SELECT * FROM, 3. DELETE USER id=. " << std::endl;
+    std::cout << "Commands: 1. CREATE USER, 2. SELECT ALL, 3. DELETE USER id=. " << std::endl;
     
     std::string first_word, second_word;
 
@@ -47,11 +55,19 @@ int main()
             }
             case Choice::SELECT_ALL:
             {
-
+                for (auto const &user : db.get_all_users())
+                {
+                    std::cout << "User: " << user.name << " age:" << user.age << " with id: " << user.id << std::endl;
+                }
+                break;
             }
             case Choice::DELETE_USER:
             {
-
+                int id;
+                std::cin >> id;
+                db.remove_user(id);
+                std::cout << "User with id: " << id << " deleted" << std::endl;
+                break;
             }
 
             case Choice::GET_USER:
