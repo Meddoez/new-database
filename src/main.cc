@@ -1,4 +1,5 @@
 #include "database.hpp"
+#include "json_parser.hpp"
 #include <iostream>
 #include <sstream>
 
@@ -7,7 +8,8 @@ enum class Choice
     CREATE_USER,
     SELECT_ALL,
     DELETE_USER,
-    GET_USER
+    GET_USER,
+    EXIT
 };
 
 Choice command_parser(std::string const &first_word, std::string const &second_word)
@@ -38,6 +40,7 @@ int main()
     std::string first_word, second_word;
 
     Database db;
+    JSON_Parser parser;
     while (std::cin >> first_word >> second_word) 
     { 
         try
@@ -50,6 +53,7 @@ int main()
                 User user;
                 std::cin >> user.name >> user.age;
                 db.add_user(user);
+                parser.save_to_table(db.get_user_table(), "users.json");
                 std::cout << "User: " << user.name << " created with id: " << user.id << std::endl;
                 break;
             }
@@ -69,11 +73,14 @@ int main()
                 std::cout << "User with id: " << id << " deleted" << std::endl;
                 break;
             }
-
             case Choice::GET_USER:
             {
 
             }
+            case Choice::EXIT:
+            {
+                std::cout << "Exiting program" << std::endl;
+                break;
             }
         }
         catch (std::runtime_error &e)
@@ -81,7 +88,7 @@ int main()
             std::cout << "Error: " << e.what() << std::endl;
         }
     }
-
+    }
 
 
 }

@@ -56,3 +56,13 @@ User Database::get_specific_user(int const &user_id)
     return m_users.get_specific_row(user_id);
 }
 
+Table<User>& Database::get_user_table()
+{
+    return m_users;
+}
+
+Table<Loan>& Database::get_loan_table()
+{
+    return m_loans;
+}
+

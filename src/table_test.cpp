@@ -3,6 +3,7 @@
 #include "user.hpp"
 #include "database.hpp"
 #include "loans.hpp"
+#include "json_parser.hpp"
 #include <iostream>
 #include "catch.hpp"
 using namespace std;
@@ -94,5 +95,14 @@ TEST_CASE("Hashmap lookup tests")
     REQUIRE(db.get_specific_user(1).age == 23);
 }
 
+TEST_CASE("JSON save tests")
+{
+    JSON_Parser parser;
+    Database db;
+    User user{0, "Johan", 26};
+
+    db.add_user(user);
+    parser.save_to_table(db.get_user_table(), "users.json");
+}
 
 
