@@ -1,12 +1,20 @@
-[
 {
-  "id": 0,
-  "name": "Alex",
-  "age": 26
-},
-{
-  "id": 1,
-  "name": "Johan",
-  "age": 29
+    "next_id": 3,
+    "rows": [
+        {
+            "age": 25,
+            "id": 0,
+            "name": "johan"
+        },
+        {
+            "age": 23,
+            "id": 1,
+            "name": "lolzie"
+        },
+        {
+            "age": 27,
+            "id": 2,
+            "name": "Mohammed"
+        }
+    ]
 }
-]

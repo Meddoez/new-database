@@ -81,6 +81,26 @@ public:
         return m_row_map[id];
     }
 
+    void set_next_id(int const &id)
+    {
+        m_next_id = id;
+    }
+
+    void insert_loaded(T const &row) 
+    {
+        m_rows.push_back(row);
+    }
+
+    void clear_rows() 
+    {
+        m_rows.clear();
+    }
+
+    int get_next_id() const
+    {
+        return m_next_id;
+    }
+
 private:
     std::vector<T> m_rows;
     int m_next_id;

@@ -41,7 +41,8 @@ int main()
 
     Database db;
     JSON_Parser parser;
-    while (std::cin >> first_word >> second_word) 
+    parser.load_from_table(db.get_user_table(), "users.json");
+    while (std::cin >> first_word && first_word != "EXIT" && std::cin >> second_word)  
     { 
         try
         {
@@ -53,6 +54,7 @@ int main()
                 User user;
                 std::cin >> user.name >> user.age;
                 db.add_user(user);
+
                 parser.save_to_table(db.get_user_table(), "users.json");
                 std::cout << "User: " << user.name << " created with id: " << user.id << std::endl;
                 break;
@@ -61,7 +63,7 @@ int main()
             {
                 for (auto const &user : db.get_all_users())
                 {
-                    std::cout << "User: " << user.name << " age:" << user.age << " with id: " << user.id << std::endl;
+                    std::cout << "User: " << user.name << " age: " << user.age << " with id: " << user.id << std::endl;
                 }
                 break;
             }
@@ -83,12 +85,11 @@ int main()
                 break;
             }
         }
+    }
         catch (std::runtime_error &e)
         {
             std::cout << "Error: " << e.what() << std::endl;
         }
     }
-    }
-
 
 }
