@@ -1,12 +1,14 @@
 #pragma once
-#include "sql_statement.hpp"
+#include "statement.hpp"
+#include <string> 
 
-class create_statement : public sql_statement
+// CREATE TABLE **** (...);
+class Create_statement : public Statement
 {
 public:
-
+    Create_statement(std::string const& table_name);
 
 private:
-
+    std::string m_table_name;
 };
 
